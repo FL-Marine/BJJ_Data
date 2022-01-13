@@ -98,11 +98,13 @@ ggplot(
 ## Top Successful Defensive Moves
 ```{r}
 ggplot(bjjdata_move_name_vector2,
-       aes(x = move_name, y = defense_succeeded)) + geom_col() + geom_text(aes(label = defense_succeeded),
-                                                                           vjust = 5,
-                                                                           color = "white") + labs(title = "Top Successful Defensive Moves") +  theme(axis.text.y = element_blank(),
-                                                                                                                                                      axis.ticks.y = element_blank())
-                                                                                                                                                     
+       aes(x = move_name, y = defense_succeeded)) +
+        geom_col() + geom_text(aes(label = defense_succeeded),
+        vjust = 5,
+        color = "white") + 
+        labs(title = "Top Successful Defensive Moves") +  
+        theme(axis.text.y = element_blank(),
+                                                                                                                                                                                 
 # Top 3 successful defensive  moves
 # 1. Trip
 # 2. Sweep
