@@ -75,7 +75,7 @@ ggplot(bjjdata, aes(x = defense_attempted)) + geom_bar() + geom_text(
 ```
 ![image](https://user-images.githubusercontent.com/74512335/149395566-bc316322-a923-47b5-b299-0e1fd5102e82.png)
 
-# Top Successful Offensive Moves Treemap
+## Top Successful Offensive Moves Treemap
 ```{r}
 ggplot(
   bjjdata_move_name_vector1,
@@ -95,6 +95,17 @@ ggplot(
 ```
 ![image](https://user-images.githubusercontent.com/74512335/149411019-18b18758-1300-44ab-b098-15ee963a33f3.png)
 
-
+## Top Successful Defensive Moves
+```{r}
+ggplot(bjjdata_move_name_vector2,
+       aes(x = move_name, y = defense_succeeded)) + geom_col() + geom_text(aes(label = defense_succeeded),
+                                                                           vjust = 5,
+                                                                           color = "white") + labs(title = "Top Successful Defensive Moves") +  theme(axis.text.y = element_blank(),
+                                                                                                                                                      axis.ticks.y = element_blank())
+                                                                                                                                                      ```
+# Top 3 successful defensive  moves
+# 1. Trip
+# 2. Sweep
+# 3. Tie single and double leg
 
 
