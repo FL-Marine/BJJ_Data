@@ -8,7 +8,13 @@ ggplot(data = bjjdata, mapping = aes(x = category)) + geom_bar()
 
 ## Offensive moves success
 ```{r}
-ggplot(bjjdata, aes(x = offense_succeeded)) + geom_bar() + geom_text(aes(label = ..count..), stat = "count", vjust = 0.015, color = "black")
+ggplot(bjjdata, aes(x = offense_succeeded)) + geom_bar() + geom_text(
+  aes(label = ..count..),
+  stat = "count",
+  vjust = 0.015,
+  color = "black"
+)
+
 # This shows a count of how many times an offensive move succeeded
 # 0 - 93x
 # 1 - 7x
@@ -20,7 +26,12 @@ ggplot(bjjdata, aes(x = offense_succeeded)) + geom_bar() + geom_text(aes(label =
 
 ## Offensive moves attempts
 ```{r}
-ggplot(bjjdata, aes(x = offense_attempted)) + geom_bar() + geom_text(aes(label = ..count..), stat = "count", vjust = 0.015, color = "black")
+ggplot(bjjdata, aes(x = offense_attempted)) + geom_bar() + geom_text(
+  aes(label = ..count..),
+  stat = "count",
+  vjust = 0.015,
+  color = "black"
+)
 # This shows a count of how many times an offensive move was attempted
 # 0 - 98x
 # 1 - 7x
@@ -33,7 +44,12 @@ ggplot(bjjdata, aes(x = offense_attempted)) + geom_bar() + geom_text(aes(label =
 
 ## Defensive moves success
 ```{r}
-ggplot(bjjdata, aes(x = defense_succeeded)) + geom_bar() + geom_text(aes(label = ..count..), stat = "count", vjust = 0.015, color = "black")
+ggplot(bjjdata, aes(x = defense_succeeded)) + geom_bar() + geom_text(
+  aes(label = ..count..),
+  stat = "count",
+  vjust = 0.015,
+  color = "black"
+)
 # This shows a count of how many times a defensive move was successful
 # 0 - 92x
 # 1 - 9x
@@ -46,7 +62,12 @@ ggplot(bjjdata, aes(x = defense_succeeded)) + geom_bar() + geom_text(aes(label =
 
 ## Defensive moves attempts
 ```{r}
-ggplot(bjjdata, aes(x = defense_attempted)) + geom_bar() + geom_text(aes(label = ..count..), stat = "count", vjust = 0.015, color = "black")
+ggplot(bjjdata, aes(x = defense_attempted)) + geom_bar() + geom_text(
+  aes(label = ..count..),
+  stat = "count",
+  vjust = 0.015,
+  color = "black"
+)
 # This shows a count of how many times an defensive move was attempted
 # 0 - 101x
 # 1 - 8x
