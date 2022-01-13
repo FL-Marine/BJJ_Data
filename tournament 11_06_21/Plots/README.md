@@ -103,7 +103,7 @@ ggplot(bjjdata_move_name_vector2,
         vjust = 5,
         color = "white") + 
         labs(title = "Top Successful Defensive Moves") +  
-        theme(axis.text.y = element_blank(),                                                                                                                                     
+        theme(axis.text.y = element_blank(),                                                                                                                                                axis.ticks.y = element_blank()) 
 # Top 3 successful defensive  moves
 # 1. Trip
 # 2. Sweep
