@@ -54,5 +54,20 @@ ggplot(bjjdata, aes(x = defense_attempted)) + geom_bar() + geom_text(aes(label =
 ```
 ![image](https://user-images.githubusercontent.com/74512335/149395566-bc316322-a923-47b5-b299-0e1fd5102e82.png)
 
+# Top Successful Offensive Moves Treemap
+```{r}
+ggplot(
+  bjjdata_move_name_vector1,
+  aes(
+    area = offense_succeeded,
+    fill = move_name,
+    label = paste0(move_name, "\n", offense_succeeded)
+  )
+) +
+  geom_treemap() + geom_treemap_text() + theme(legend.position =  "none") + labs(title = "Top Successful Offensive Moves")
+```
+![image](https://user-images.githubusercontent.com/74512335/149411019-18b18758-1300-44ab-b098-15ee963a33f3.png)
+
+
 
 
