@@ -86,6 +86,12 @@ ggplot(
   )
 ) +
   geom_treemap() + geom_treemap_text() + theme(legend.position =  "none") + labs(title = "Top Successful Offensive Moves")
+  
+  # Top 3 successful offense moves
+  # 1. Lateral throw
+  # 2. Offensive guard
+  # 3. Offensive half guard
+  
 ```
 ![image](https://user-images.githubusercontent.com/74512335/149411019-18b18758-1300-44ab-b098-15ee963a33f3.png)
 
