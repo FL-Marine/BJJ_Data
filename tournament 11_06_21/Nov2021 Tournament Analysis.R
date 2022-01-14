@@ -377,6 +377,8 @@ points_defended %>%
     axis.ticks.y = element_blank(),
     axis.title.x = element_text(face = "bold")
   )
-# Successfully defending trips prevented my opponents from scoring 14 points on me.
+# Successfully defending trips prevented my opponents from scoring 14 points on me
+# Preventing sweeps allows me to keep the match momentum in my favor
+# Need to counter arm drags with a counter arm drag
        
                                                   
