@@ -91,7 +91,6 @@ ggplot(
   # 1. Lateral throw
   # 2. Offensive guard
   # 3. Offensive half guard
-  
 ```
 ![image](https://user-images.githubusercontent.com/74512335/149411019-18b18758-1300-44ab-b098-15ee963a33f3.png)
 
@@ -109,10 +108,10 @@ ggplot(bjjdata_move_name_vector2,
 # 1. Trip
 # 2. Sweep
 # 3. Tie single and double leg
- ```
+```
 ![image](https://user-images.githubusercontent.com/74512335/149563027-eaabf611-ab42-42cf-a545-16b8a79b4a0c.png)
 
-# Points Prevented
+## Points Prevented
 ```{r}
 points_defended %>%
   filter(points_prevented >= 1L & points_prevented <= 14L) %>%
@@ -137,8 +136,10 @@ points_defended %>%
     axis.text.y = element_blank(),
     axis.ticks.y = element_blank(),
     axis.title.x = element_text(face = "bold")
-    ```
-![image](https://user-images.githubusercontent.com/74512335/149569999-8017bff5-2442-4f5b-9618-bfb421e23ea7.png)
+   ```
+![image](https://user-images.githubusercontent.com/74512335/149570160-1657eaa7-2799-41b5-9ff5-9af59ac70a1d.png)
+
+
 
 
 
