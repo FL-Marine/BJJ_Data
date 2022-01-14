@@ -223,7 +223,7 @@ bjjdata_move_name_vector1 <-
             sum)
 # Aggregated the previous dataframe to add the values by move_name
 offense_attempted
-# move_name offense_succeeded 
+#            move_name  offense_succeeded  offense_attempted
 # 1          Back                 1                 0
 # 2         Guard                 6                 0
 # 3    Guard Pass                 3                 4
@@ -306,7 +306,7 @@ bjjdata_move_name_vector2 <-
   aggregate(cbind(defense_succeeded, defense_attempted) ~ move_name,
             bjjdata_move_name_defense,
             sum)
-# move_name defense_succeeded defense_attempted
+#       move_name        defense_succeeded    defense_attempted
 # 1     Arm bar                 1                 0
 # 2    Arm Drag                 3                 0
 # 3        Back                 2                 0
