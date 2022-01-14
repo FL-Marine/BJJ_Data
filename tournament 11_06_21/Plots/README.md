@@ -142,17 +142,6 @@ points_scored %>%
 ```
 ![image](https://user-images.githubusercontent.com/74512335/149572798-eb5a7e60-5dc3-4ed0-a215-612e38d75141.png)
 
-
-
-
-
-
-
-
-
-
-
-
 ## Points prevented per move
 ```{r}
 points_defended %>%
@@ -178,7 +167,9 @@ points_defended %>%
     axis.text.y = element_blank(),
     axis.ticks.y = element_blank(),
     axis.title.x = element_text(face = "bold")
-   # Successfully defending trips prevented my opponents from scoring 14 points on me.                                                   
+   # Successfully defended trips prevented my opponents from scoring 14 points on me
+   # Preventing sweeps allows me to keep the match momentum in my favor
+   # Need to counter arm drags with a counter arm drag
    ```
 ![image](https://user-images.githubusercontent.com/74512335/149570314-2959f3aa-57fe-479a-bb0b-b76a747f2a86.png)
 
