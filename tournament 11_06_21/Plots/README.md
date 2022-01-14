@@ -112,5 +112,34 @@ ggplot(bjjdata_move_name_vector2,
  ```
 ![image](https://user-images.githubusercontent.com/74512335/149563027-eaabf611-ab42-42cf-a545-16b8a79b4a0c.png)
 
+# Points Prevented
+```{r}
+points_defended %>%
+  filter(points_prevented >= 1L & points_prevented <= 14L) %>%
+  ggplot() +
+  aes(x = move_name, weight = points_prevented) +
+  geom_bar(fill = "#051C45") + geom_text(
+    aes(label = ..count..),
+    stat = "count",
+    vjust = 1.5,
+    colour = "white"
+  ) +
+  labs(
+    x = "Move Name",
+    y = "Total Points Prevented",
+    title = "Points Prevented",
+    subtitle = "This shows which points I successfully defended"
+  ) +
+  theme_gray() +
+  theme(
+    plot.title = element_text(size = 16L, face = "bold"),
+    axis.title.y = element_text(face = "bold"),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.x = element_text(face = "bold")
+    ```
+![image](https://user-images.githubusercontent.com/74512335/149569999-8017bff5-2442-4f5b-9618-bfb421e23ea7.png)
+
+
 
 
