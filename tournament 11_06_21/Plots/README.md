@@ -111,7 +111,49 @@ ggplot(bjjdata_move_name_vector2,
 ```
 ![image](https://user-images.githubusercontent.com/74512335/149563027-eaabf611-ab42-42cf-a545-16b8a79b4a0c.png)
 
-## Points Prevented
+# Points Scored per move
+```{r}
+points_scored %>%
+  filter(points_earned >= 1L & points_earned <= 16L) %>%
+  ggplot() +
+  aes(x = move_name, weight = points_earned) +
+  geom_bar(fill = "#112446") +  geom_text(
+    aes(label = ..count..),
+    stat = "count",
+    vjust = 1.5,
+    colour = "white"
+  ) +
+  labs(x = "Move Name",
+       title = "Points Scored",
+       subtitle = "Moves & amount of points scored against opponents") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16L, face = "bold"),
+    # axis.title.y = element_text(face = "bold"),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_blank()
+    
+  ) 
+# Mounted positions are worth 4 points which is a good way to control the match and set up different submissions.
+# Controlling an opponent in side control is worth 3 point
+# I had 7 lateral throws worth 2 points, this tells me that take down is super effective but I need more takedowns in my arsenal.
+```
+![image](https://user-images.githubusercontent.com/74512335/149572798-eb5a7e60-5dc3-4ed0-a215-612e38d75141.png)
+
+
+
+
+
+
+
+
+
+
+
+
+## Points prevented per move
 ```{r}
 points_defended %>%
   filter(points_prevented >= 1L & points_prevented <= 14L) %>%
