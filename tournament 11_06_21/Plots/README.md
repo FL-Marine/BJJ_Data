@@ -137,7 +137,7 @@ points_defended %>%
     axis.ticks.y = element_blank(),
     axis.title.x = element_text(face = "bold")
    ```
-![image](https://user-images.githubusercontent.com/74512335/149570160-1657eaa7-2799-41b5-9ff5-9af59ac70a1d.png)
+![image](https://user-images.githubusercontent.com/74512335/149570314-2959f3aa-57fe-479a-bb0b-b76a747f2a86.png)
 
 
 
