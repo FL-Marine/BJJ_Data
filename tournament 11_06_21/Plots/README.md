@@ -98,18 +98,19 @@ ggplot(
 ## Top Successful Defensive Moves
 ```{r}
 ggplot(bjjdata_move_name_vector2,
-       aes(x = move_name, y = defense_succeeded)) +
+       aes(x = fct_rev(fct_reorder(move_name, defense_succeeded)), y = defense_succeeded)) +
         geom_col() + geom_text(aes(label = defense_succeeded),
-        vjust = 5,
+        vjust = 1,
         color = "white") + 
         labs(title = "Top Successful Defensive Moves") +  
         theme(axis.text.y = element_blank(),
-              axis.ticks.y = element_blank()) 
+              axis.ticks.y = element_blank()) + labs(x = "move_name")
 # Top 3 successful defensive  moves
 # 1. Trip
 # 2. Sweep
 # 3. Tie single and double leg
  ```
-![image](https://user-images.githubusercontent.com/74512335/149421656-42c7a29d-6278-4e0e-96f3-085feb505a0e.png)
+![image](https://user-images.githubusercontent.com/74512335/149563027-eaabf611-ab42-42cf-a545-16b8a79b4a0c.png)
+
 
 
