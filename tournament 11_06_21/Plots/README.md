@@ -136,6 +136,7 @@ points_defended %>%
     axis.text.y = element_blank(),
     axis.ticks.y = element_blank(),
     axis.title.x = element_text(face = "bold")
+   # Successfully defending trips prevented my opponents from scoring 14 points on me.                                                   
    ```
 ![image](https://user-images.githubusercontent.com/74512335/149570314-2959f3aa-57fe-479a-bb0b-b76a747f2a86.png)
 
