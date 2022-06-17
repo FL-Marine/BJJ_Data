@@ -146,7 +146,7 @@ ggplot(bjjdata, aes(x = offense_attempted)) + geom_bar() + geom_text(
 
 ## Defense succeeded ----
 
-### Frequency of offensive successes ----
+### Frequency of defensive successes ----
 table(bjjdata$defense_succeeded)
 # 0 - not attempted or succeeded
 # 1 - 9x a move was successfully defended once
