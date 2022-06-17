@@ -164,7 +164,7 @@ prop.table(table(bjjdata$defense_succeeded))
 
 ### Sum of defense successes ----
 sum(bjjdata$defense_succeeded)
-# 33x  my offensive was successful
+# 33x  my defense was successful
 
 ggplot(bjjdata, aes(x = defense_succeeded)) + geom_bar() + geom_text(
   aes(label = ..count..),
@@ -182,7 +182,7 @@ ggplot(bjjdata, aes(x = defense_succeeded)) + geom_bar() + geom_text(
 
 ## Defense Attempts ----
 
-### Frequency of offensive attempts ----
+### Frequency of defensive attempts ----
 table(bjjdata$defense_attempted)
 # 0 - not attempted or succeeded
 # 1 - 8x I made a defensive attempt once from various moves
