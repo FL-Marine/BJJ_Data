@@ -1,0 +1,524 @@
+---
+title: "BJJ Prototype Report"
+author: "Abe"
+date: '2022-06-15'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tournament 11/6/2021 Report
+
+This report is about a NEWBREEd Tournament where the final placing was 1st in Gi and 3rd in No Gi. The report will breakdown what moves were effective both offensively and defensively. Move attempts and successes will documented as well as recommendations for based the analysis.
+
+## Tournament points
+
+-   4 Points: Full mount, Back mount.
+-   3 Points: Passing the guard, Passing the half guard.
+-   2 Points: Takedown, Guard sweep, Half guard sweep, Knee on belly.
+-   Advantages only count if the match ends in a tie.
+
+## Win/Loss Ratio
+
+-   5 total match's
+-   4 Wins
+-   1 Loss
+
+4/5 = 80% win ratio for the day
+
+```{r, include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(esquisse)
+library(treemapify)
+library(forcats)
+
+# calling libraries 
+
+# include=FALSE prevents code from appearing in PDF
+```
+
+```{r, include=FALSE}
+bjjdata <- read.csv("~/R Projects/BJJ_Data/BJJ_R data - Copy.csv")
+View(bjjdata)
+# reading data into R
+```
+
+```{r, include=FALSE}
+bjjdata <- bjjdata %>% 
+  mutate(match_id = as.factor(match_id),
+         category = as.factor(category),
+         move_name = as.factor(move_name),
+         Submission = as.factor(Submission),
+         W.or.L = as.factor(W.or.L),
+         move_id = as.factor(move_id),
+         match_style = as.factor(match_style))
+str(bjjdata)
+# changed the above columns to factors since they are categories
+```
+
+## Match Points
+
+```{r, include=FALSE}
+match_points <- bjjdata %>% 
+  select(points_scored, points_scored_upon)
+```
+
+-   Total points scored - 36
+-   Total points scored upon - 11
+
+### Average points scored per match
+
+-   Scored an avg of 7.2 points per match
+
+```{r, include=FALSE}
+sum(bjjdata$points_scored, na.rm = TRUE) / 5
+```
+
+### Average points scored upon per match
+
+-   Gave up an avg of 2.2 per match
+
+```{r, include=FALSE}
+sum(bjjdata$points_scored_upon, na.rm = TRUE) / 5
+```
+
+## Offensive successes breakdown
+
+```{r, include=FALSE}
+table(bjjdata$offense_succeeded)
+```
+
+-   0 - not attempted or succeeded
+-   1 - 7x a move was done successfully once
+-   2 - 7x a move was done successfully twice
+-   3 - 1x a move was done successfully x3
+-   4 - 1x a move was done successfully x4
+-   5 - 5x a move was done successfully once
+
+```{r, include=FALSE}
+off_suc_df <- bjjdata %>% 
+  select(offense_succeeded) %>% 
+  filter(offense_succeeded > 0)
+# Created a df showing only offense succeeded greater than 0
+```
+
+```{r, echo=FALSE}
+ggplot(off_suc_df, aes(x = offense_succeeded)) + geom_bar() + geom_text(
+  aes(label = ..count..),
+  stat = "count",
+  vjust = 0.015,
+  color = "black"
+)
+```
+
+### Percentage breakdown of offensive successes
+
+```{r, include=FALSE}
+prop.table(table(bjjdata$offense_succeeded))
+```
+
+-   0 - 84%.5 not attempted or succeeded
+-   1 - 6.3% of moves were successes 7x
+-   2 - 6.3% of moves were successes 7x
+-   3 - 5 0.009090909% of offense was successful
+
+### Total of Offensive Successes
+
+```{r, include=FALSE}
+ sum(bjjdata$offense_succeeded)
+```
+
+-   33x offensive moves were successful
+
+## Offensive attempts breakdown
+
+```{r, include=FALSE}
+table(bjjdata$offense_attempted)
+```
+
+-   0 - not attempted or succeeded
+-   1 - 7x a move was attempted once
+-   2 - 1x a move was attempted twice
+-   3 - 3x time a move was attempted
+-   5 - 1 move was attempted 5x
+
+```{r, include=FALSE}
+off_apt_df <- bjjdata %>% 
+  select(offense_attempted) %>% 
+  filter(offense_attempted > 0)
+# Created a df showing only offense attempted greater than 0
+```
+
+```{r, echo=FALSE}
+ggplot(off_apt_df, aes(x = offense_attempted)) + geom_bar() + geom_text(
+  aes(label = ..count..),
+  stat = "count",
+  vjust = 0.015,
+  color = "black"
+)
+```
+
+### Percentage breakdown of offensive attempts
+
+```{r, include=FALSE}
+prop.table(table(bjjdata$offense_attempted))
+```
+
+-   0 - 89% not attempted
+-   1 - 6.3% of moves attempted twice
+-   2 - 6.3% of moves were successes 7x
+-   3 - 2.72% of offensive attempts were done 3x
+-   5 - 0.009090909% of moves were attempted 5x
+
+### Total of Offensive Attempted
+
+```{r, include=FALSE}
+sum(bjjdata$offense_attempted)
+```
+
+-   23x offensive moves were attempted
+
+## Defensive successes breakdown
+
+```{r, include=FALSE}
+table(bjjdata$defense_succeeded)
+```
+
+-   0 - not attempted or succeeded
+-   1 - 9x a move was successfully defended once
+-   2 - 5x a move was successfully defended twice
+-   3 - 3x a move successfully defended
+-   5 - 5x a successfully defended once
+
+```{r, include=FALSE}
+def_suc_df <- bjjdata %>% 
+  select(defense_succeeded) %>% 
+  filter(defense_succeeded > 0)
+# Created a df showing only defense succeeded greater than 0
+```
+
+```{r, echo=FALSE}
+ggplot(def_suc_df, aes(x = defense_succeeded)) + geom_bar() + geom_text(
+  aes(label = ..count..),
+  stat = "count",
+  vjust = 0.015,
+  color = "black"
+)
+```
+
+### Percentage breakdown of defensive successes
+
+```{r, include=FALSE}
+prop.table(table(bjjdata$defense_succeeded))
+```
+
+-   0 - 83%.6 not attempted or succeeded
+-   1 - 8.1 of moves successfully defended once
+-   2 - 4.5% of moves were successfully defended twice
+-   3 - 2.72% of moves ere successfully defended 3x
+-   5 - 0.009090909% was a move defensed 5x
+
+### Total of defensive successes
+
+```{r, include=FALSE}
+sum(bjjdata$defense_succeeded)
+```
+
+-   33x defensive moves were successful
+
+## Defensive attempts breakdown
+
+```{r, include=FALSE}
+table(bjjdata$defense_attempted)
+```
+
+-   0 - not attempted or succeeded
+-   1 - 8x I made a defensive attempt once from various moves
+-   2 - 1x I made a defensive attempt twice
+
+```{r, include=FALSE}
+def_apt_df <- bjjdata %>% 
+  select(defense_attempted) %>% 
+  filter(defense_attempted > 0)
+# Created a df showing only defense succeeded greater than 0
+```
+
+```{r, echo=FALSE}
+ggplot(def_apt_df, aes(x = defense_attempted)) + geom_bar() + geom_text(
+  aes(label = ..count..),
+  stat = "count",
+  vjust = 0.015,
+  color = "black"
+)
+```
+
+### Percentage breakdown of defensive attempts
+
+```{r, include=FALSE}
+prop.table(table(bjjdata$defense_attempted))
+```
+
+-   0 - 91.8% not attempted
+-   1 - 7.2% of moves were defensive attempts once
+-   2 - 0.009090909% of moves were defensive attempts twice
+
+### Total of defensive successes
+
+```{r, include=FALSE}
+sum(bjjdata$defense_attempted)
+```
+
+-   10x defensive moves were successful
+
+## Move Analysis
+
+### Offense
+
+```{r, include=FALSE}
+bjjdata_move_name <- bjjdata %>% 
+  filter(offense_succeeded > 0) %>%
+  select(move_name, category, offense_succeeded, offense_attempted)
+# Created a new dataframe to filter and determine what offensive moves were most effective
+
+```
+
+```{r, include=FALSE}
+bjjdata_move_name_vector1 <-
+  aggregate(cbind(offense_succeeded, offense_attempted) ~ move_name,
+            bjjdata_move_name,
+            sum)
+# Aggregated the previous dataframe to add the values by move_name
+```
+
+### Top successful offensive moves
+
+```{r, echo=FALSE}
+ggplot(
+  bjjdata_move_name_vector1,
+  aes(
+    area = offense_succeeded,
+    fill = move_name,
+    label = paste0(move_name, "\n", offense_succeeded)
+  )
+) +
+  geom_treemap() + geom_treemap_text() + theme(legend.position =  "none") + labs(title = "Top Successful Offensive Moves")
+```
+
+### Top 3 successful offense moves
+1. Lateral throw
+2. Offensive guard
+3. Offensive half guard
+
+### Most offensive successful categories
+
+```{r, include=FALSE}
+bjjdata_category_vector1 <-
+  aggregate(cbind(offense_succeeded, offense_attempted) ~ category,
+            bjjdata_move_name,
+            sum)
+# Aggregated the previous dataframe to add the values by category
+```
+
+1.  Position - 21x
+2.  Takedown - 7x
+3.  Transition - 5x
+
+### Points Scored per move
+
+```{r, include=FALSE}
+points_scored <- bjjdata_move_name_vector1 %>% 
+  select(move_name, offense_succeeded)
+# Added a new column 
+```
+
+```{r, include=FALSE}
+points_scored$total_points <- 4 
+# Added a new column  
+```
+
+```{r, include=FALSE}
+points_scored_vector <- c(4, 0, 3, 0, 2, 4, 3, 2)
+# Created pointed scored vector
+```
+
+```{r, include=FALSE}
+points_scored <- cbind(points_scored, points_scored_vector) %>% 
+  select(-total_points)
+```
+
+```{r, include=FALSE}
+points_scored$points_earned <- points_scored$offense_succeeded * points_scored$points_scored_vector
+# Final points scored dataframe
+```
+
+```{r, echo=FALSE}
+points_scored %>%
+  filter(points_earned >= 1L & points_earned <= 16L) %>%
+  ggplot() +
+  aes(x = move_name, weight = points_earned) +
+  geom_bar(fill = "#112446") +  geom_text(
+    aes(label = ..count..),
+    stat = "count",
+    vjust = 1.5,
+    colour = "white"
+  ) +
+  labs(x = "Move Name",
+       title = "Points Scored",
+       subtitle = "Moves & amount of points scored against opponents") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16L, face = "bold"),
+    # axis.title.y = element_text(face = "bold"),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_blank()
+    
+  ) 
+```
+
+## Defense
+
+```{r, include=FALSE}
+bjjdata_move_name_defense <- bjjdata %>% 
+  filter(defense_succeeded > 0) %>%
+  select(move_name, category, defense_succeeded, defense_attempted)
+# Created a new dataframe to filter and determine what defensive moves were most effective
+```
+
+```{r, include=FALSE}
+bjjdata_move_name_vector2 <-
+  aggregate(cbind(defense_succeeded, defense_attempted) ~ move_name,
+            bjjdata_move_name_defense,
+            sum)
+```
+
+### Top successful defensive moves
+
+```{r, echo=FALSE}
+ggplot(bjjdata_move_name_vector2,
+       aes(x = fct_rev(fct_reorder(move_name, defense_succeeded)), y = defense_succeeded)) +
+        geom_col() + geom_text(aes(label = defense_succeeded),
+        vjust = 1,
+        color = "white") + 
+        labs(title = "Top Successful Defensive Moves") +  
+        theme(axis.text.y = element_blank(),
+              axis.ticks.y = element_blank()) + labs(x = "move_name")
+
+```
+
+### Top 3 successful defensive  moves
+1. Trip
+2. Sweep
+3. Tie single and double leg
+
+```{r, include=FALSE}
+points_defended <- bjjdata_move_name_vector2 %>% 
+  select(move_name, defense_succeeded)
+# Created new dataframe  
+```
+
+```{r, include=FALSE}
+points_defended$total_points <- 4 
+# Added a new column 
+```
+
+```{r, include=FALSE}
+points_defended_vector <- c(0, 2, 4, 2, 0, 0, 4, 2, 2, 0, 2)
+# Created pointed defended vector
+```
+
+```{r, include=FALSE}
+points_defended <- cbind(points_defended, points_defended_vector) %>% 
+  select(-total_points)
+```
+
+```{r, include=FALSE}
+points_defended$points_prevented <- points_defended$defense_succeeded * points_defended$points_defended_vector
+# Final points defended dataframe
+
+```
+
+### Points Prevented per Move
+
+```{r, echo=FALSE}
+points_defended %>%
+  filter(points_prevented >= 1L & points_prevented <= 14L) %>%
+  ggplot() +
+  aes(x = move_name, weight = points_prevented) +
+  geom_bar(fill = "#051C45") + geom_text(
+    aes(label = ..count..),
+    stat = "count",
+    vjust = 1.5,
+    colour = "white"
+  ) +
+  labs(
+    x = "Move Name",
+    y = "Total Points Prevented",
+    title = "Points Prevented",
+    subtitle = "This shows which points I successfully defended"
+  ) +
+  theme_gray() +
+  theme(
+    plot.title = element_text(size = 16L, face = "bold"),
+    axis.title.y = element_text(face = "bold"),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.x = element_text(face = "bold")
+)
+```
+
+## Final Analysis & Reccomendations
+
+### Offense
+
+- Offensive success was seen mostly in guard and half guard but ended up with no submissions. Have a game plan if going to primarily play in guard chain together sweeps and submissions.
+
+- Only had 1 takedown that was effective for the entire tournament. The lateral throw was successful 7 times scoring 14 point across all matches. Although, this move is highly effective it won't work on everyone. Be sure to work other takedowns into game plan. Using fakes to set up shots, drags, snapdowns, etc.
+
+- Out of the 3 offensive categories, positional moves were most successful. This shows success in getting to mount, back, and side control. No submissions were achieved. Strongly encourage finding a solid submission in each positional cateogry to obtain a finish.
+
+- Mount and side control scored the most points resulting in 16 & 15 total points for each. This shows strong passing abilities to get into high scoring dominate situations. 
+
+### Defense
+
+- Prevented mostly takedowns with trips and single/double legs. Denied opponents 30 total points from takedowns. While in opponents guard denied 5 sweeps for a total of 10 points. Having a strong wrestling base allowed for the prevention of so many points. 
+
+- There were 3 arm drag's that were successfully defended. Most of the time a re-drag is available to takedown opponent or set up another takedown
+
+- Mount and back mount were prevented twice a piece denying the highest scoring positions. Allowing the opponent to score in those positions having the highest probability of changing the match outcome. 
+
+- Effective triangle, kimura, and arm bar defense. The one match that was loss was due to kimura. Hand was on mat and opponent capitalized. 
+
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
+
