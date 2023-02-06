@@ -1,0 +1,102 @@
+---
+title: "Competitor Analysis"
+author: "Fernando Pichardo"
+date: '2-5-2023'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Report Overview
+
+The analysis from this report is taken from analyzing 6 videos which captured 5 No Gi matches. The matches were a mix of sub only and points so point specific analysis has been excluded.
+
+## Competition Formats
+
+-   Tournaments - 4
+-   Super Match - 1 
+
+## Win/Loss Ratio
+
+-   5 total match's
+-   3 Wins
+-   2 Loss
+-   60% Win Ratio
+
+## Match Breakdown
+
+1. White Lion: Sat down immediately with right leg back and left leg forward attacking opponent right lead leg.  In the match, the opponent attempted a flying kimura while the competitor went for a single leg X. The competitor's right arm was too extended, leading to a back take by the opponent. The opponent held the back take for approximately 20 seconds before transitioning to mount. Match was won in OT by fastest back escape of 45 seconds.
+
+2. NewBreed: The competitor immediately sat down to butterfly guard and tied up with their opponent the entire time. They escaped back quickly and had good leg entries. The competitor almost gave up side control when they wrestled up and had their head and neck exposed which led to losing by guillotine.
+
+3. Copa America: The competitor started against a black belt in butterfly guard and kept going for a sweep but should have stood up. They almost got the sweep from half guard but went back to butterfly and got mounted. The video cut out, but the competitor came on top after a half guard sweep, and it appeared that the opponent was going for a triangle.
+
+4. CSC Match 1: The opponent chose to sit down first, but the competitor used their opponent's left leg to fall back for a leg lock. The match was done in 10 seconds.
+
+5. CSC Match 2: The competitor sat down right away, but the opponent quickly went for rubber guard. The competitor pressured the opponent and got hip bump swept into mount. They had a good triangle escape and were in a position for a body lock pass. The competitor kept using rubber guard to set up moves, but they also had a good escape from a triangle.
+
+```{r, include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(esquisse)
+library(treemapify)
+library(forcats)
+library(DataEditR)
+library(tidyverse)
+library(tidyquant)
+
+# calling libraries 
+
+# include=FALSE prevents code from appearing in PDF
+```
+
+```{r, include=FALSE}
+bjjdata <- read.csv("C:/Users/abedi/OneDrive/Desktop/Jitz/Sub Stats/Client Analysis/Fernando Pichardo/Competitor Analysis.csv")
+View(bjjdata)
+# reading data into R
+```
+
+```{r, include=FALSE}
+# bjjdata <- data_edit(
+#     x = bjjdata
+# )
+# 
+# view(bjjdata)
+# using DataEditR to edit the dataframe, removing all the NA's
+```
+
+
+```{r, include=FALSE}
+bjjdata <- bjjdata %>% 
+  mutate(Move.Name = as.factor(Move.Name),
+         Category = as.factor(Category),
+         Match.Type = as.factor(Match.Type),
+         Competition.Format = as.factor(Competition.Format))
+str(bjjdata)
+# changed the above columns to factors since they are categories
+```
+
+```{r, include=FALSE}
+# esquisser()
+```
+
+## Move Analysis
+```{r, echo=FALSE}
+ggplot(bjjdata) +
+  aes(x = fct_reorder(Move.Name, Move.Count, .fun = sum), y = Move.Count) +
+  geom_col(fill = "#112446") +
+  labs(x = "Move Name", y = "Move Count", title = "Move Analysis") +
+  theme_minimal() +
+  coord_flip()
+```
+
+```{r, include=FALSE}
+#bprop.table(table(bjjdata$Move.Name))
+```
+## Final Analysis & Reccomendations
+
+Based on the observation of 5 matches, it was noted that only one takedown (double leg) was executed from a wrestling up position. While wrestling up is a strong area, it is recommended to practice additional takedowns or effective ways of pulling guard to increase the range of skills and improve overall performance. Furthermore, incorporating more sweeps from half guard, which was the 2nd most observed position, can provide a tactical advantage and diversify one's game plan. To enhance the grappling skills, consistent and focused training sessions should be incorporated in the routine.
+
+
