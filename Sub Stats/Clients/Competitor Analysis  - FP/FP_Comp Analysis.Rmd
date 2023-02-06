@@ -37,119 +37,12 @@ The analysis from this report is taken from analyzing 6 videos which captured 5 
 
 5. CSC Match 2: The competitor sat down right away, but the opponent quickly went for rubber guard. The competitor pressured the opponent and got hip bump swept into mount. They had a good triangle escape and were in a position for a body lock pass. The competitor kept using rubber guard to set up moves, but they also had a good escape from a triangle.
 
-```{r, include=FALSE}
-library(dplyr)
-library(ggplot2)
-library(esquisse)
-library(treemapify)
-library(forcats)
-library(DataEditR)
-library(tidyverse)
-library(tidyquant)
 
-# calling libraries 
+## Final Analysis & Reccomendations
 
-# include=FALSE prevents code from appearing in PDF
-```
-
-```{r, include=FALSE}
-bjjdata <- read.csv("C:/Users/abedi/OneDrive/Desktop/Jitz/Sub Stats/Client Analysis/Fernando Pichardo/Competitor Analysis.csv")
-View(bjjdata)
-# reading data into R
-```
-
-```{r, include=FALSE}
-# bjjdata <- data_edit(
-#     x = bjjdata
-# )
-# 
-# view(bjjdata)
-# using DataEditR to edit the dataframe, removing all the NA's
-```
+### Offense
 
 
-```{r, include=FALSE}
-bjjdata <- bjjdata %>% 
-  mutate(Move.Name = as.factor(Move.Name),
-         Category = as.factor(Category),
-         Match.Type = as.factor(Match.Type),
-         Competition.Format = as.factor(Competition.Format))
-str(bjjdata)
-# changed the above columns to factors since they are categories
-```
+### Defense
 
-```{r, include=FALSE}
-# esquisser()
-```
-
-```{r, echo=FALSE}
-ggplot(bjjdata) +
-  aes(x = fct_reorder(Move.Name, Move.Count, .fun = sum), y = Move.Count) +
-  geom_col(fill = "#112446") +
-  labs(x = "Move Name", y = "Move Count", title = "Analysis of Moves") +
-  theme_minimal() +
-  coord_flip()
-```
-```{r, include=FALSE}
-prop.table(table(bjjdata$Move.Name))
-```
-
-
-<!-- ## Final Analysis & Reccomendations -->
-
-<!-- ### Offense -->
-
-<!-- - Offensive success was seen mostly in guard and half guard but ended up with no submissions. Have a game plan if going to primarily play in guard chain together sweeps and submissions. -->
-
-<!-- - Only had 1 takedown that was effective for the entire tournament. The lateral throw was successful 7 times scoring 14 point across all matches. Although, this move is highly effective it won't work on everyone. Be sure to work other takedowns into game plan. Using fakes to set up shots, drags, snapdowns, etc. -->
-
-<!-- - Out of the 3 offensive categories, positional moves were most successful. This shows success in getting to mount, back, and side control. No submissions were achieved. Strongly encourage finding a solid submission in each positional cateogry to obtain a finish. -->
-
-<!-- - Mount and side control scored the most points resulting in 16 & 15 total points for each. This shows strong passing abilities to get into high scoring dominate situations.  -->
-
-<!-- ### Defense -->
-
-<!-- - Prevented mostly takedowns with trips and single/double legs. Denied opponents 30 total points from takedowns. While in opponents guard denied 5 sweeps for a total of 10 points. Having a strong wrestling base allowed for the prevention of so many points.  -->
-
-<!-- - There were 3 arm drag's that were successfully defended. Most of the time a re-drag is available to takedown opponent or set up another takedown. -->
-
-<!-- - Mount and back mount were prevented twice a piece denying the highest scoring positions. Allowing the opponent to score in those positions having the highest probability of changing the match outcome.  -->
-
-<!-- - Effective triangle, kimura, and arm bar defense. The one match that was loss was due to kimura. Hand was on mat and opponent capitalized.  -->
-
-<!-- ### Key takeaways -->
-
-<!-- - Finish opponents when in dominate positions, work on 1 submission while in mount, half guard, side control to have a solid sub in each position.  -->
-
-<!-- - Need a variety of takedowns the lateral throw won't work against everyone and will not always be available. Must develop other takedowns starting with fakes and faints which will open up a vareity of opportunities. -->
-
-<!-- - Counter wrestling was solid in prevention of opponent scoring, must capitalize on those opportunities to re-shot, re-arm, throw, etc to score.  -->
-
-<!-- ```{r, include=FALSE} -->
-
-<!-- ``` -->
-
-<!-- ```{r, include=FALSE} -->
-
-<!-- ``` -->
-
-<!-- ```{r, include=FALSE} -->
-
-<!-- ``` -->
-
-<!-- ```{r, include=FALSE} -->
-
-<!-- ``` -->
-
-<!-- ```{r, include=FALSE} -->
-
-<!-- ``` -->
-
-<!-- ```{r, include=FALSE} -->
-
-<!-- ``` -->
-
-<!-- ```{r, include=FALSE} -->
-
-<!-- ``` -->
-
+### Key takeaways
