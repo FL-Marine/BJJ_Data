@@ -1,0 +1,363 @@
+---
+title: "Competitor Analysis"
+author: "Victor Salazar"
+date: '2-26-2023'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Report Overview
+
+The analysis from this report is taken from analyzing 6 videos which captured 6 No Gi matches. The matches were a mix of sub only and points.
+
+## Tournament Points
+
+Most matches were submission only with no points. Only 2 matches were scored on points:
+
+-   NewBreed-1 Points Scored - 4 \| Points Loss - 8
+
+-   NewBreed-2 Points Scored - 0 \| Points Loss - 6
+
+-   Total points scored = 0
+
+-   Total points losses = 14
+
+## Subs
+
+Sub Wins
+
+-   Arm Bar Triangle
+-   RNC - OT
+
+Sub Losses
+
+-   Twister
+-   RNC - OT
+
+Offensive Sub Threats = 12
+
+Defensive Sub Threats = 16
+
+## Overtime
+
+-   Fastest Sub: 15 seconds
+-   Fastest Escape: 15 seconds
+
+## Win/Loss
+
+-   6 total match's
+-   2 Wins
+-   4 Loss
+-   33% win ratio
+
+```{r, include=FALSE}
+# calling libraries 
+# include=FALSE prevents code from appearing in PDF
+
+library(dplyr)
+library(ggplot2)
+library(esquisse)
+library(readxl)
+library(forcats)
+```
+
+```{r, include=FALSE}
+# reading data into R
+
+file_path <- "C:/Users/abedi/OneDrive/Desktop/Jitz/Sub Stats/Client Analysis/Victor Salazar/Competitor Analysis - VS.xlsx"
+
+# Read sheet 1
+data <- read_excel(file_path, sheet = "Data")
+
+# Read sheet 2
+compfacts <- read_excel(file_path, sheet = "Comp Facts")
+
+View(data)
+View(compfacts)
+```
+
+```{r, include=FALSE}
+data <- data %>% 
+  mutate(category = as.factor(category),
+         move_name = as.factor(move_name))
+str(data)
+# changed the above columns to factors since they are categories
+```
+
+## Submissions
+
+```{r, echo=FALSE}
+ggplot(data %>% filter(category %in% c("Submission Arm", "Choke", "Leg Lock")), aes(x = category, y = offense_attempted)) +
+  geom_bar(stat = "summary", fun = "sum", width = 0.8) +
+  geom_text(
+    aes(label = ifelse(..y.. > 0, format(..y.., big.mark = ","), "")),
+    stat = "summary",
+    fun = "sum",
+    vjust = -0.5,
+    color = "black",
+    show.legend = FALSE,
+    size = 3
+  ) +
+  labs(title = "Submission Threats Attempted", x = "Category", y = "Offense Attempted (sum)") +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+    axis.text.y = element_text(size = 8),
+    axis.title = element_blank(),
+    plot.title = element_text(size = 12, face = "italic"),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    panel.background = element_blank(),
+    axis.line = element_line(colour = "black"),
+    panel.border = element_blank(),
+    plot.margin = unit(c(1,1,1,4), "lines")
+  )
+
+
+```
+
+**Key Takeaways:**
+
+More chokes were attempted then all other submissions (RNC & Guillotine). Consider more joint locks while implementing competition strategy and allows for more submission attempts.
+
+```{r, echo=FALSE}
+ggplot(data %>% filter(category %in% c("Submission Arm", "Choke", "Leg Lock")), aes(x = category, y = defense_succeeded)) +
+  geom_bar(stat = "summary", fun = "sum", width = 0.8) +
+  geom_text(
+    aes(label = ifelse(..y.. > 0, format(..y.., big.mark = ","), "")),
+    stat = "summary",
+    fun = "sum",
+    vjust = -0.5,
+    color = "black",
+    show.legend = FALSE,
+    size = 3
+  ) +
+  labs(title = "Submission Threats Defended", x = "Category", y = "Offense Attempted (sum)") +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+    axis.text.y = element_text(size = 8),
+    axis.title = element_blank(),
+    plot.title = element_text(size = 12, face = "italic"),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    panel.background = element_blank(),
+    axis.line = element_line(colour = "black"),
+    panel.border = element_blank(),
+    plot.margin = unit(c(1,1,1,4), "lines")
+  )
+
+
+```
+
+**Key Takeaways:**
+
+Most of opponents opted for RNC, Darce, and Guillotine attacks which were defended well except 1 RNC in OT. Continue perfecting strangle defenses.
+
+## Offensive
+
+```{r, echo=FALSE}
+ggplot(data %>% filter(offense_succeeded > 0), aes(x = move_name, y = offense_succeeded)) + 
+  geom_col(width = 0.8) + 
+  geom_text(
+    data = data %>% filter(offense_succeeded > 0),
+    aes(label = ifelse(..y.. > 0, format(..y.., big.mark = ","), "")),
+    stat = "summary",
+    fun = "sum",
+    vjust = -0.5,
+    color = "black",
+    show.legend = FALSE,
+    size = 3
+  ) +
+  labs(x = "", y = "", 
+       title = "Offensive Wins by Move Name") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(size = 8),
+        axis.title = element_blank(),
+        plot.title = element_text(size = 12, face = "italic"),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.border = element_blank(),
+        plot.margin = unit(c(1,1,1,4), "lines"))
+
+```
+
+**Key Takeaways:**
+
+There were more offensive wins in positional situations versus take downs or top positions. Throughout the matches there were a lot of scrambles which resulted in loss of offensive opportunities. Focus on adding more take downs into gameplan which emphasis on top control.
+
+```{r, echo=FALSE}
+ggplot(data %>% filter(offense_attempted > 0), aes(x = move_name, y = offense_attempted)) + 
+  geom_col(width = 0.8) + 
+  geom_text(
+    data = data %>% filter(offense_attempted > 0),
+    aes(label = ifelse(..y.. > 0, format(..y.., big.mark = ","), "")),
+    stat = "summary",
+    fun = "sum",
+    vjust = -0.5,
+    color = "black",
+    show.legend = FALSE,
+    size = 3
+  ) +
+  labs(x = "", y = "", 
+       title = "Offensive Losses by Move Name") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(size = 8),
+        axis.title = element_blank(),
+        plot.title = element_text(size = 12, face = "italic"),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.border = element_blank(),
+        plot.margin = unit(c(1,1,1,4), "lines"))
+```
+
+**Key Takeaways:**
+
+Double leg was the most attempted take down which would've been finished if there were setups prior to taking shot. Guillotines were attempted the most, which means time was spent mostly in front of opponent instead of attacking from the side or behind.
+
+## Defensive
+
+```{r, echo=FALSE}
+
+ggplot(data %>% filter(defense_succeeded > 0), aes(x = move_name, y = defense_succeeded )) + 
+  geom_col(width = 0.8) + 
+  geom_text(
+    data = data %>% filter(defense_succeeded > 0),
+    aes(label = ifelse(..y.. > 0, format(..y.., big.mark = ","), "")),
+    stat = "summary",
+    fun = "sum",
+    vjust = -0.5,
+    color = "black",
+    show.legend = FALSE,
+    size = 3
+  ) +
+  labs(x = "", y = "", 
+       title = "Defensive Wins by Move Name") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(size = 8),
+        axis.title = element_blank(),
+        plot.title = element_text(size = 12, face = "italic"),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.border = element_blank(),
+        plot.margin = unit(c(1,1,1,4), "lines"))
+
+
+```
+
+**Key Takeaways:**
+
+Excellent all around defensive capabilities in various positions and attacks from opponents. Strangle submissions were the prevented 8 total from guillotine and RNC.
+
+```{r, echo=FALSE}
+ggplot(data %>% filter(defense_attempted > 0), aes(x = move_name, y = defense_attempted)) + 
+  geom_col(width = 0.8) + 
+  geom_text(
+    data = data %>% filter(defense_attempted > 0),
+    aes(label = ifelse(..y.. > 0, format(..y.., big.mark = ","), "")),
+    stat = "summary",
+    fun = "sum",
+    vjust = -0.5,
+    color = "black",
+    show.legend = FALSE,
+    size = 3
+  ) +
+  labs(x = "", y = "", 
+       title = "Defensive Losses by Move Name") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+        axis.text.y = element_text(size = 8),
+        axis.title = element_blank(),
+        plot.title = element_text(size = 12, face = "italic"),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        panel.border = element_blank(),
+        plot.margin = unit(c(1,1,1,4), "lines"))
+```
+**Key Takeaways:**
+
+Focus heavily on guard retention, back, mount, and side control escapes as defending these positions can be the most exhausting and time consuming in a match. 
+
+## Match Analysis
+
+NewBreed-1: 
+
+• Scored 4 points and lost 8 points; match result was lost 
+
+• Had opportunities to score points more points if position was established first 
+
+• Should focus on securing points before submission
+
+NewBreed-2: 
+
+• Scored 0 points and lost 6 points; match result was lost 
+
+• Falling back for leg locks instead of passing to secure points was a key factor in this match 
+
+• Should have followed up with gaining top position after excellent triangle and submission escapes
+
+WLP-1: 
+
+• Match result was lost due to fastest escape
+
+• Should focus on escaping body triangle first while fighting hands
+
+WLP-2: 
+
+• Match result was a win by arm bar triangle
+
+• Should work on shucking and duck under to make opponent address those attacks opening the possibility for other attacks 
+
+• Should work on different feints/fakes to properly set up shots
+
+WLP-5: 
+
+• Match result was a win by fastest submission in 15 seconds
+
+• Did well by allowing the opponent to waste energy
+
+• Excellent counter wrestling and hand fighting displayed during this match
+
+WLP-6:
+
+• Started match strong with Uchi Mata take down but opponent rolled through
+
+• Multiple buggy chokes were attempted
+
+• Spent most of the match countering vs attacking 
+
+• Back and Mount were both lost several times
+
+• Opportunities to control opponent were not held that long
+
+## Final Analysis & Reccomendations
+
+Overall, the report highlights the importance of focusing on scoring points before submission, escaping body triangles, and working on different feints/fakes to properly set up shots. Throughout the 6 videos there was a noticeable trend of electing bottom vs top pressuring positions. Focusing on gaining and retaining top position will allow for points to be scored, positions to be solidified and submissions to easily executed.
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
+
+```{r, include=FALSE}
+
+```
